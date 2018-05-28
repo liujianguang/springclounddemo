@@ -1,0 +1,14 @@
+version: '2'
+services:
+  config:
+    image: registry.cn-qingdao.aliyuncs.com/wwmxd/config:latest
+    ports:
+      - 8888:8888
+  generator:
+    image: registry.cn-qingdao.aliyuncs.com/wwmxd/generator:latest
+    links:
+      - config
+    ports:
+      - 8777:8777
+    entrypoint: ./wait-for-it.sh config:8888 -t 600 --
+    command: java -Djava.security.egd=file:/dev/./urandom -jar /app.jar

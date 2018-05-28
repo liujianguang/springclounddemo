@@ -1,0 +1,17 @@
+filebeat:
+  prospectors:
+  -
+    paths:
+      - "/data/logs/*.log"
+    fields:
+      logIndex: userservice
+      docType: springcloud
+      project: adplatform
+    multiline:
+      pattern: '^[0-9]{4}-[0-9]{2}-[0-9]{2}'
+      negate: true
+      match: after
+      timeout: 5s
+output:
+  logstash:
+    hosts: ["localhost:5044"]

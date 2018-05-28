@@ -1,0 +1,2 @@
+2017/12/27 08:31:50 [error] 8#8: *1 open() "/usr/share/nginx/html/favicon.ico" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /favicon.ico HTTP/1.1", host: "localhost:8080", referrer: "http://localhost:8080/"
+2017/12/27 08:50:11 [error] 7#7: *1 open() "/usr/share/nginx/html/hello" failed (2: No such file or directory), client: 172.17.0.1, server: localhost, request: "GET /hello HTTP/1.1", host: "localhost:8080"

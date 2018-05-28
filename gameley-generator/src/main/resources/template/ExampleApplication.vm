@@ -1,0 +1,25 @@
+package com.gameley;
+
+
+
+import com.gameley.common.EnableLogAspect;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.netflix.feign.EnableFeignClients;
+
+import java.io.IOException;
+
+@SpringBootApplication
+@EnableEurekaClient
+@EnableFeignClients
+@ServletComponentScan("com.gameley.config.druid")
+@EnableLogAspect
+public class ${modelname}Application {
+    public static void main(String[] args) {
+        SpringApplication.run(${modelname}Application.class, args);
+    }
+
+
+}

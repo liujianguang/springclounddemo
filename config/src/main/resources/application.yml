@@ -1,0 +1,39 @@
+server:
+  port: 8888
+
+spring:
+    application:
+        name: gameley-config
+    cloud:
+        config:
+            server:
+                git:
+                    uri: https://gitee.com/lwydyby/test-config.git
+                    searchPaths: config-repo
+                    label: master
+                    username: lwydyby
+                    password: 6820254
+    rabbitmq:
+        host: 10.163.89.100  # 登录 Rabbitmq 后台管理页面地址为：http://localhost:15672
+        port: 5672
+        username: guest   # 默认账户
+        password: guest   # 默认密码
+#eureka:
+#    instance:
+#        statusPageUrlPath: /info
+#        healthCheckUrlPath: /health
+#
+#    client:
+#        serviceUrl:
+#            defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8090}/eureka/
+
+#security:
+#  user:
+#    name: user
+#    password: ${CONFIG_SERVER_PASSWORD:password}
+management:
+  security:
+    enabled: false
+encrypt:
+  key: 123456
+

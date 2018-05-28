@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: monitor
+  mail.:
+    host: smtp.163.com
+    username: wwmxdmail@163.com
+    password: wwmxd321
+    properties:
+      mail:
+        smtp:
+          auth: true
+        starttls:
+          enable: true
+          required: true
+  # 发送给谁
+  boot:
+    admin:
+      notify:
+        mail:
+          to: wwmxdmail@163.com
+  # 是谁发送出去的
+          from: 万万没想到
+  # 主题
+          subject: "springboot项目监控：#{application.name} (#{application.id}) is #{to.status}"
+          text: "项目#{application.name} (#{application.id})\n的状态从 #{from.status} 变更为 #{to.status}\n\n#{application.healthUrl}"
+#  boot:
+#    admin:
+#      context-path: /
+#      discovery:
+#              converter:
+#                management-context-path: /
+
+
+#  boot:
+#    admin:
+#      probed-endpoints: {"health:actuator/health","env:actuator/env","metrics:actuator/metrics","httptrace:actuator/trace","threaddump:dump", "jolokia:actuator/jolokia","info:actuator/info","logfile:actuator/logfile","refresh:actuator/refresh","flyway:actuator/flyway", "liquibase:actuator/liquibase", "heapdump:actuator/heapdump","loggers:actuator/loggers","auditevents:actuator/auditevents","/:/actuator","loggers/{name}:actuator/loggers/{name}","archaius:actuator/archaius","conditions:actuator/conditions","configprops:actuator/configprops","features:actuator/features","service-registry:actuator/service-registry","mappings:actuator/mappings"}
+#      discovery:
+#        converter:
+#          management-context-path: /actuator
+
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+server:
+    port: 8764 #启动端口
+eureka:
+   instance.:
+      preferIpAddress: true
+#      health-check-url-path: /actuator/health
+#      home-page-url-path: /actuator
+#      status-page-url-path: /actuator/info
+#      metadata-map:
+#        user.name: admin
+#        user.password: admin
+   client:
+      serviceUrl:
+        defaultZone: http://localhost:8761/eureka/
+management:
+    endpoint:
+      health:
+        show-details: ALWAYS
+    endpoints:
+          web:
+            cors:
+              allowed-headers: "*"
+              allowed-origins: "*"
+          enabled-by-default: true
+          web:
+            exposure.include: "*"
+            base-path: /
+logging:
+  config:
+  file: /home/userService/springboot-${spring.application.name}.log
+
+
+
+#  server:
+#    servlet:
+#      context-path: /
+
+
+#turbine:
+#  clusterNameExpression: new String("default")
+#  appConfig: user-service
+#  combineHostPort: true

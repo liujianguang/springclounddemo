@@ -1,0 +1,82 @@
+package ${package}.entity;
+
+
+import java.io.Serializable;
+
+import com.baomidou.mybatisplus.annotations.Version;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableLogic;
+import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.gameley.common.DataName;
+import ${package}.entity.${className};
+//import lombok.Data;
+
+
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @email ${email}
+ * @date ${datetime}
+ */
+//@Data
+@TableName("${tableName}")
+public class ${className} extends Model<${className}> {
+	private static final long serialVersionUID=1L;
+	#foreach ($column in $columns)
+	#if($column.columnName == $pk.columnName)
+    //$column.comments
+    @TableId(value="id", type= IdType.AUTO)
+	#if($column.comments)
+	@DataName(name="$column.comments")
+	#end
+    private $column.attrType $column.attrname;
+	#elseif($column.columnName == "delete_flag")
+    @TableField("$column.columnName")
+    @TableLogic
+	#if($column.comments)
+	@DataName(name="$column.comments")
+	#end
+    private $column.attrType $column.attrname;
+	#else
+    //$column.comments
+    @TableField("$column.columnName")
+	#if($column.comments)
+	@DataName(name="$column.comments")
+	#end
+    private $column.attrType $column.attrname;
+	#end
+
+	#end
+
+	#foreach ($column in $columns)
+	/**
+	 * 设置：${column.comments}
+	 */
+	public void set${column.attrName}($column.attrType $column.attrname) {
+			this.$column.attrname = $column.attrname;
+			}
+	/**
+	 * 获取：${column.comments}
+	 */
+	public $column.attrType get${column.attrName}() {
+			return $column.attrname;
+			}
+	#end
+	@Override
+	protected Serializable pkVal() {
+        return this.id;
+	}
+	@Override
+	public String toString() {
+	    return "${className}{"+
+#foreach ($column in $columns)
+	"${column.attrName}="+$column.attrname+
+#end
+		"}";}
+}

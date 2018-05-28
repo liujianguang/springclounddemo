@@ -1,0 +1,113 @@
+package ${package}.controller;
+
+
+import com.gameley.common.EnableGameleyLog;
+import com.gameley.common.enumvo.ModifyName;
+import com.gameley.common.util.MapUtil;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
+import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.web.bind.annotation.*;
+import ${package}.service.${className}Service;
+import com.gameley.common.msg.BaseResponse;
+import com.gameley.common.msg.ObjectRestResponse;
+import com.alibaba.fastjson.JSONObject;
+import com.gameley.common.constant.RestCodeConstants;
+import com.gameley.common.msg.ListRestResponse;
+import java.util.*;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.mapper.Condition;
+import com.gameley.entity.${className};
+/**
+ * <p>
+ * $!{comments} 前端控制器
+ * </p>
+ *
+ * @author ${author}
+ * @since ${datetime}
+ */
+
+@RestController
+@RequestMapping("${secondModuleName}")
+@Slf4j
+public class ${className}Controller {
+
+	@Autowired
+    private ${className}Service ${secondModuleName}Service;
+
+    @ApiOperation(value ="增加${comments}", httpMethod ="POST")
+    @RequestMapping(value = "add", method = RequestMethod.POST)
+    @EnableGameleyLog(name= ModifyName.SAVE,serviceclass = ${className}Service.class,handleName = "")
+    public BaseResponse add${className}(@RequestBody ${className} ${secondModuleName}){
+        Boolean flag=${secondModuleName}Service.insert(${secondModuleName});
+        if(flag){
+            return new BaseResponse(200,"创建成功");
+        }else {
+            return new BaseResponse(RestCodeConstants.ADD_ERROR_CODE,"创建失败");
+        }
+
+    }
+
+    @ApiOperation(value ="编辑${comments}", httpMethod ="POST")
+    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @EnableGameleyLog(name= ModifyName.UPDATE,serviceclass = ${className}Service.class,handleName = "")
+    public BaseResponse edit${className}(@RequestBody ${className} ${secondModuleName}){
+        Boolean flag=${secondModuleName}Service.updateById(${secondModuleName});
+        if(flag){
+            return new BaseResponse(200,"编辑成功");
+        }else {
+            return new BaseResponse(RestCodeConstants.EDIT_ERROR_CODE,"编辑失败");
+
+        }
+
+    }
+
+    @ApiOperation(value ="删除${comments}", httpMethod ="POST")
+    @EnableGameleyLog(name= ModifyName.DELETE,serviceclass = ${className}Service.class,handleName = "")
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public BaseResponse delete${className}(@RequestBody Integer id){
+        Boolean flag=${secondModuleName}Service.deleteById(id);
+        if(flag){
+            return new BaseResponse(200,"删除成功");
+        }else {
+            return new BaseResponse(RestCodeConstants.DELETE_ERROR_CODE,"删除失败");
+        }
+
+    }
+
+    @ApiOperation(value ="查询所有${comments}", httpMethod ="POST")
+    @RequestMapping(value = "getall", method = RequestMethod.POST)
+    public ListRestResponse getAll${className}(){
+        ListRestResponse listRestResponse=new ListRestResponse<>();
+        List<${className}> allinfos=${secondModuleName}Service.selectList(Condition.EMPTY);
+        listRestResponse.setResult(allinfos);
+        listRestResponse.setCount(allinfos.size());
+        listRestResponse.setMsg("所有信息");
+        return listRestResponse;
+
+    }
+    @ApiOperation(value ="查询单页${comments}", httpMethod ="POST")
+    @RequestMapping(value = "getpage", method = RequestMethod.POST)
+    public ListRestResponse getPage${className}(@RequestBody JSONObject jsonObject){
+        Page<${className}> page=new Page(jsonObject.getInteger("current"),jsonObject.getInteger("size"));
+        Map<String,Object> queryInfos=MapUtil.changeToMap(jsonObject,"id","time");
+        ListRestResponse listRestResponse=new ListRestResponse<>();
+        Page<${className}> pageInfo=${secondModuleName}Service.selectPage(page,Condition.create().allEq(queryInfos));
+        int count=${secondModuleName}Service.selectCount(Condition.create().allEq(queryInfos));
+        List<${className}> allinfos=pageInfo.getRecords();
+        listRestResponse.setResult(allinfos);
+        listRestResponse.setCount(count);
+        listRestResponse.setMsg("所有信息");
+        return listRestResponse;
+
+    }
+
+
+
+
+
+}

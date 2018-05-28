@@ -1,0 +1,140 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+#    health-check-url-path: /actuator/health
+#    home-page-url-path: /actuator
+#    status-page-url-path: /actuator/info
+management:
+  endpoints:
+    web:
+      exposure.include: "*"
+      base-path: /
+server:
+  port: 5000
+spring:
+  application:
+    name: gateway-service
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    client-id: zipkin
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: 127.0.0.1:9092
+          zkNodes: 127.0.0.1:2181
+  sleuth:
+    sampler:                 #日志追踪
+      percentage: 1.0
+  datasource:
+      type: com.alibaba.druid.pool.DruidDataSource
+      driverClassName: com.mysql.jdbc.Driver
+  #    druid:
+      url: jdbc:mysql://localhost:3306/ag_admin?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=true
+      username: root
+      password: 123456
+      initial-size: 10
+      max-active: 100
+      min-idle: 10
+      max-wait: 60000
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      filters: stat
+      maxActive: 20
+      timeBetweenEvictionRunsMillis: 60000
+      minEvictableIdleTimeMillis: 300000
+      validationQuery: SELECT 1 FROM DUAL
+      testWhileIdle: true
+      testOnBorrow: false
+      testOnReturn: false
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 20
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Dao.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.gameley.entity
+  global-config:
+    #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+    id-type: 0
+    #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+    field-strategy: 2
+    #驼峰下划线转换
+    db-column-underline: true
+    #刷新mapper 调试神器
+    refresh-mapper: true
+    #数据库大写下划线转换
+    #capital-mode: true
+    #序列接口实现类配置
+    #key-generator: cn.jeefast.xxx
+    #逻辑删除配置
+    logic-delete-value: 0
+    logic-not-delete-value: 1
+    #自定义填充策略接口实现
+    #meta-object-handler: cn.jeefast.xxx
+    #自定义SQL注入器
+    #sql-injector: cn.jeefast.xxx
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+#  sleuth:
+#    sampler:                                    #日志记录
+#      percentage: 1.0
+#  zipkin:
+#    base-url: http://localhost:9411
+#  rabbitmq:
+#    host: localhost
+#    port: 5672
+#    username: guest
+#    password: guest
+zuul:
+  routes:
+    api-a:
+      path: /user-api/**
+      serviceId: user-service
+    api-b:
+          path: /gameley-auth/**
+          serviceId: gameley-auth
+    api-c:
+          path: /doc-api/**
+          serviceId: doc-service
+  prefix: /api #为zuul设置一个公共的前缀
+  host:
+    socket-timeout-millis: 60000
+    connect-timeout-millis: 60000
+elasticsearch: false
+gate:
+  ignore:
+    startWith: /static,/login,/gameley-auth/oauth/token,/user-api/menu/getallmenu
+
+audience:
+  clientId: 098f6bcd4621d373cade4e832627b4f6
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  name: restapiuser
+  expiresSecond: 172800
+  client64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0Kiz=
+
+jwt:
+  header: token   #http请求头所需要的字段
+  secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=      #jwt秘钥
+  expiration: 604800      #7天 单位:秒
+  auth-path: auth         #认证请求的路径
+
+
+ribbon:
+  ReadTimeout: 60000
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+logging:
+  file: /home/userService/springboot-${spring.application.name}.log

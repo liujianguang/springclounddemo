@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: io.zipkin.zipkin2:zipkin-storage-elasticsearch:2.3.0">
+    <CLASSES>
+      <root url="jar:///media/lw/92CCBB4DCCBB2A7D/project/maven/repo/io/zipkin/zipkin2/zipkin-storage-elasticsearch/2.3.0/zipkin-storage-elasticsearch-2.3.0.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar:///media/lw/92CCBB4DCCBB2A7D/project/maven/repo/io/zipkin/zipkin2/zipkin-storage-elasticsearch/2.3.0/zipkin-storage-elasticsearch-2.3.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar:///media/lw/92CCBB4DCCBB2A7D/project/maven/repo/io/zipkin/zipkin2/zipkin-storage-elasticsearch/2.3.0/zipkin-storage-elasticsearch-2.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,31 @@
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+    instance:
+        preferIpAddress: true
+management:
+  endpoints:
+    web:
+      exposure.include: "*"
+      base-path: /
+audience:
+  clientId: 098f6bcd4621d373cade4e832627b4f6
+  base64Secret: MDk4ZjZiY2Q0NjIxZDM3M2NhZGU0ZTgzMjYyN2I0ZjY=
+  name: restapiuser
+  expiresSecond: 2400
+server:
+  port: 8765
+spring:
+  application:
+    name: gameley-auth
+  cloud:
+      stream:
+        kafka:
+          binder:
+            brokers: 127.0.0.1:9092
+            zkNodes: 127.0.0.1:2181
+elasticsearch: false
+
+logging:
+  file: /home/userService/springboot-${spring.application.name}.log
